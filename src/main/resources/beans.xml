@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+         http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- DeliveryBoy Bean -->
+    <bean id="deliveryBoy" class="org.example.model.DeliveryBoy"/>
+
+    <!-- Restaurant Bean -->
+    <bean id="restaurant" class="org.example.model.Restaurant"/>
+
+    <!-- DeliveryService Bean with Setter Injection -->
+    <bean id="deliveryService" class="org.example.services.DeliveryService">
+        <property name="deliveryBoy" ref="deliveryBoy"/>
+    </bean>
+
+    <!-- FoodService Bean with Constructor Injection -->
+    <bean id="foodService" class="org.example.services.FoodService">
+        <constructor-arg ref="restaurant"/>
+        <constructor-arg ref="deliveryService"/>
+    </bean>
+
+    <!-- Customer Bean with Setter Injection -->
+    <bean id="customer" class="org.example.model.Customer">
+        <property name="foodService" ref="foodService"/>
+    </bean>
+</beans>
